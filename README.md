@@ -14,4 +14,4 @@ cd frontend/frontend
 
 npm install
 
-sửa xong chạy thoi :v
+...
