@@ -1,17 +1,17 @@
 # my_exercise
 
-git clone https://github.com/ntvy2k/my_exercise.git
+```git clone https://github.com/ntvy2k/my_exercise.git```
 
-cd my_exercise
+```cd my_exercise```
 
-python -m venv my-venv
+```python -m venv my-venv```
 
-.\my-venv\Scripts\active
+```.\my-venv\Scripts\active```
 
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
-cd frontend/frontend
+```cd frontend/frontend```
 
-npm install
+```npm install```
 
 ...
