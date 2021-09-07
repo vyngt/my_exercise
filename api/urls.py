@@ -18,4 +18,6 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', views.RegisterUserView.as_view(), name="register"),
     path('login-face/', views.FaceLoginView.as_view(), name="face-login"),
+    path('login-password/', views.PasswordLoginView.as_view(), name="password-login"),
+    path('profile/', views.UserProfileView.as_view(), name="profile"),
 ]

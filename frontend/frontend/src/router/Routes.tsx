@@ -2,7 +2,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { Home } from "../components/home";
 import { About } from "../components/about";
 import { NavBar } from "../components/navbar";
-import { UserProfile } from "../components/user_profile";
+import { UserProfile } from "../features/user_profile";
 import { Register } from "../features/register";
 import { Login } from "../features/auth";
 

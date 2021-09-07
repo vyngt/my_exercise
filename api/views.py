@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,9 +17,12 @@ class RegisterUserView(APIView):
         user = User()
         if not User.objects.filter(username=data['username']).exists():
             user.username = data['username']
+            user.email = data['email']
+            user.first_name = data['first_name']
+            user.last_name = data['last_name']
             user.set_password(data['password'])
             user.save()
-            image = base64_file(data['img'])
+            image = base64_file(data['image_base64'])
             user_face = UserFaceImage(user=user, image=image)
             user_face.save()
             return Response({"message": "success"})
@@ -38,4 +43,29 @@ class FaceLoginView(APIView):
                 'access': str(refresh.access_token),
             })
         # return Response({"message": "Login failed"})
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordLoginView(APIView):
+    def post(self, request):
+        data = request.data
+        user = authenticate(password=data['password'], username=data['username'])
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            })
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileView(APIView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+            profile = {'username': user.username,
+                       'email': user.email,
+                       'first_name': user.first_name,
+                       'last_name': user.last_name}
+            return Response(profile)
         return Response(status=status.HTTP_400_BAD_REQUEST)
