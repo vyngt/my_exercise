@@ -17,6 +17,7 @@ const LoginFaceID = () => {
   const dispatch = useAppDispatch();
 
   const [sending, setSending] = React.useState(false);
+  const [log_fail, set_log_fail] = React.useState(false);
 
   const FaceLogin = () => {
     setSending(true);
@@ -37,10 +38,12 @@ const LoginFaceID = () => {
           dispatch(set_access_token(response.data["access"]));
           dispatch(set_refresh_token(response.data["refresh"]));
           setSending(false);
+          set_log_fail(false);
         }
       })
       .catch(() => {
         setSending(false);
+        set_log_fail(true);
       });
   };
 
@@ -49,7 +52,9 @@ const LoginFaceID = () => {
   }, []);
 
   return auth.loggedIn ? (
-    <div>Success</div>
+    <p style={{ color: "green" }}>
+      <strong>Success</strong>
+    </p>
   ) : (
     <div>
       <form>
@@ -66,6 +71,13 @@ const LoginFaceID = () => {
         <button type="button" onClick={FaceLogin}>
           {sending ? "Please wait..." : "Login"}
         </button>
+        {log_fail ? (
+          <p style={{ color: "red" }}>
+            <strong>Wrong FaceID or username!!!</strong>
+          </p>
+        ) : (
+          ""
+        )}
       </form>
     </div>
   );

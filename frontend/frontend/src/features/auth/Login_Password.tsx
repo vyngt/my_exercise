@@ -15,6 +15,7 @@ const LoginPassword = () => {
   const dispatch = useAppDispatch();
 
   const [sending, setSending] = React.useState(false);
+  const [log_fail, set_log_fail] = React.useState(false);
 
   const PasswordLogin = () => {
     setSending(true);
@@ -29,10 +30,12 @@ const LoginPassword = () => {
           dispatch(set_access_token(response.data["access"]));
           dispatch(set_refresh_token(response.data["refresh"]));
           setSending(false);
+          set_log_fail(false);
         }
       })
       .catch(() => {
         setSending(false);
+        set_log_fail(true);
       });
   };
 
@@ -41,7 +44,9 @@ const LoginPassword = () => {
   }, []);
 
   return auth.loggedIn ? (
-    <div>Success</div>
+    <p style={{ color: "green" }}>
+      <strong>Success</strong>
+    </p>
   ) : (
     <div>
       <form>
@@ -67,6 +72,13 @@ const LoginPassword = () => {
         <button type="button" onClick={PasswordLogin}>
           {sending ? "Please wait..." : "Login"}
         </button>
+        {log_fail ? (
+          <p style={{ color: "red" }}>
+            <strong>Wrong password or username!!!</strong>
+          </p>
+        ) : (
+          ""
+        )}
       </form>
     </div>
   );

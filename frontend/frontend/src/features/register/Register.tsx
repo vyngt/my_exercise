@@ -79,7 +79,7 @@ const Register = () => {
       };
       axios
         .post(url, form_data, config)
-        .then((response) => {
+        .then(() => {
           setReg_success(1);
         })
         .catch(() => setReg_success(2));
