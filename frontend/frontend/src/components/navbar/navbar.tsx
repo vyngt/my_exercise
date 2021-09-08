@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NavBar: React.FC<{}> = () => {
   return (
     <div>
-      <h3>Navbar</h3>
+      <h3>Navigator</h3>
       <ul>
         <li>
           <Link to="/home">Home</Link>
