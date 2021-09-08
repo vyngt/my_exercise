@@ -25,8 +25,8 @@ class RegisterUserView(APIView):
             image = base64_file(data['image_base64'])
             user_face = UserFaceImage(user=user, image=image)
             user_face.save()
-            return Response({"message": "success"})
-        return Response({"message": "already registered"})
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class FaceLoginView(APIView):

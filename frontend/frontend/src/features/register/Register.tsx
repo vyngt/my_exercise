@@ -17,35 +17,9 @@ import {
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { FaceID } from "../face_capture";
 
-const SendRegistration = (data: RegisterState, dispatch: any) => {
-  // console.log(data);
-  // console.log(data.image_base64);
-
-  if (data.password === data.confirm_password) {
-    const url: string = "http://127.0.0.1:8000/api/register/";
-    const form_data = new FormData();
-
-    const data_cv: Record<string, string> = data;
-
-    for (let key in data_cv) {
-      form_data.append(key, data_cv[key]);
-    }
-
-    const config = {
-      headers: { "content-type": "multipart/form-data" },
-    };
-    axios
-      .post(url, form_data, config)
-      .then((response) => console.log(response.data))
-      .catch(() => console.log("error"));
-  } else {
-    console.log("Password not matched");
-  }
-  dispatch(set_none());
-};
-
 const Register = () => {
   // Define
+  const [reg_success, setReg_success] = React.useState(0);
 
   const register = useAppSelector((state) => state.register);
   const dispatch = useAppDispatch();
@@ -87,6 +61,34 @@ const Register = () => {
     "Confirm Password",
   ];
 
+  const SendRegistration = () => {
+    const data: RegisterState = register;
+
+    if (data.password === data.confirm_password) {
+      const url: string = "http://127.0.0.1:8000/api/register/";
+      const form_data = new FormData();
+
+      const data_cv: Record<string, string> = data;
+
+      for (let key in data_cv) {
+        form_data.append(key, data_cv[key]);
+      }
+
+      const config = {
+        headers: { "content-type": "multipart/form-data" },
+      };
+      axios
+        .post(url, form_data, config)
+        .then((response) => {
+          setReg_success(1);
+        })
+        .catch(() => setReg_success(2));
+    } else {
+      console.log("Password not matched");
+    }
+    dispatch(set_none());
+  };
+
   // End define
 
   React.useEffect(() => {
@@ -96,27 +98,29 @@ const Register = () => {
   return (
     <div>
       <h1>Register</h1>
-      <form>
-        {arr_label.map((label, index) => (
-          <InputField
-            label={label}
-            type_input={arr_type[index]}
-            action={arr_func[index]}
-            value={arr_value[index]}
-            key={label}
-          >
-            {arr_child[index]}
-          </InputField>
-        ))}
-        <FaceID action={set_image} />
-        <button
-          id="register-btn"
-          type="button"
-          onClick={() => SendRegistration(register, dispatch)}
-        >
-          Register
-        </button>
-      </form>
+      {reg_success === 0 ? (
+        <form>
+          {arr_label.map((label, index) => (
+            <InputField
+              label={label}
+              type_input={arr_type[index]}
+              action={arr_func[index]}
+              value={arr_value[index]}
+              key={label}
+            >
+              {arr_child[index]}
+            </InputField>
+          ))}
+          <FaceID action={set_image} />
+          <button id="register-btn" type="button" onClick={SendRegistration}>
+            Register
+          </button>
+        </form>
+      ) : reg_success === 1 ? (
+        <p>Success</p>
+      ) : (
+        <p>Failed</p>
+      )}
     </div>
   );
 };
