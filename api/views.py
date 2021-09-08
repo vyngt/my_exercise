@@ -42,7 +42,6 @@ class FaceLoginView(APIView):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             })
-        # return Response({"message": "Login failed"})
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
