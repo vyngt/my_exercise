@@ -67,4 +67,4 @@ class UserProfileView(APIView):
                        'first_name': user.first_name,
                        'last_name': user.last_name}
             return Response(profile)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)

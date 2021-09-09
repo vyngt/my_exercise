@@ -8,7 +8,6 @@ import {
   set_password_log,
   set_access_token,
   set_refresh_token,
-  // set_logout,
 } from "./auth_slice";
 const LoginPassword = () => {
   const auth = useAppSelector((state) => state.auth);

@@ -9,7 +9,6 @@ import {
   set_image_base64_log,
   set_access_token,
   set_refresh_token,
-  // set_logout,
 } from "./auth_slice";
 
 const LoginFaceID = () => {

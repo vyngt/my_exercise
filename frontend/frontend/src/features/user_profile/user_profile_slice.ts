@@ -45,7 +45,7 @@ export const user_profile_slice = createSlice({
     set_active: (state, action: SET_ACTIVE) => {
       state.active = action.payload;
     },
-    set_none: (state) => {
+    remove_profile_status: (state) => {
       state.first_name = "";
       state.last_name = "";
       state.username = "";
@@ -61,7 +61,7 @@ export const {
   set_username,
   set_email,
   set_active,
-  set_none,
+  remove_profile_status,
 } = user_profile_slice.actions;
 
 export default user_profile_slice.reducer;

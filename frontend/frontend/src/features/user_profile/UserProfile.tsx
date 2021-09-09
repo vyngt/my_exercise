@@ -16,6 +16,7 @@ const UserProfile = () => {
   }, []);
 
   const [loading, setLoading] = React.useState(false);
+  const [fail_status, set_fail_status] = React.useState(false);
   const access_token = useAppSelector((state) => state.auth.access_token);
   const active = useAppSelector((state) => state.user_profile.active);
   const dispatch = useAppDispatch();
@@ -37,10 +38,12 @@ const UserProfile = () => {
         dispatch(set_last_name(data["last_name"]));
         dispatch(set_active(true));
         setLoading(false);
+        set_fail_status(false);
       })
       .catch(() => {
         dispatch(set_active(false));
         setLoading(false);
+        set_fail_status(true);
       });
   };
 
@@ -48,10 +51,17 @@ const UserProfile = () => {
     <div>
       <h3>User Profile</h3>
       <div>
-        {active ? <Info /> : "None"}
+        {active ? <Info /> : <p>None</p>}
         <button type="button" onClick={get_user_data}>
           {loading ? "Please Wait..." : "Get"}
         </button>
+        {fail_status ? (
+          <p style={{ color: "red" }}>
+            <strong>Error</strong>
+          </p>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
