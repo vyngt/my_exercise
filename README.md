@@ -6,7 +6,7 @@
 
 ```python -m venv my-venv```
 
-```.\my-venv\Scripts\active```
+```.\my-venv\Scripts\activate```
 
 ```pip install -r requirements.txt```
 
