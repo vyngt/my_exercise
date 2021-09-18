@@ -14,7 +14,7 @@ const ResetButton: React.FC<{}> = () => {
 
   return (
     <Link to="#" onClick={handleClick}>
-      Reset Status
+      Reset Status(Aka Logout)
     </Link>
   );
 };

@@ -19,3 +19,9 @@ def base64_file(data, name=None):
     if not name:
         name = _name.split(":")[-1]
     return ContentFile(base64.b64decode(_img_str), name='{}.{}'.format(name, ext))
+
+
+def encode_base64(path):
+    image = open(path, 'rb')
+    image_read = image.read()
+    return base64.encodebytes(image_read)

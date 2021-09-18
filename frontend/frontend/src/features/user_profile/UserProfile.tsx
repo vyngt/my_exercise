@@ -7,6 +7,7 @@ import {
   set_email,
   set_first_name,
   set_last_name,
+  set_image,
   set_active,
 } from "./user_profile_slice";
 
@@ -36,6 +37,7 @@ const UserProfile = () => {
         dispatch(set_email(data["email"]));
         dispatch(set_first_name(data["first_name"]));
         dispatch(set_last_name(data["last_name"]));
+        dispatch(set_image("data:image/png;base64," + data["image"]));
         dispatch(set_active(true));
         setLoading(false);
         set_fail_status(false);
@@ -75,6 +77,9 @@ const Info = () => {
       <p>Last Name: {profile.last_name}</p>
       <p>Username: {profile.username}</p>
       <p>Email: {profile.email}</p>
+      <p>
+        <img src={profile.image} alt={"userface"} />
+      </p>
     </div>
   );
 };

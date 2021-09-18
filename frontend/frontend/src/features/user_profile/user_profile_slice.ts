@@ -5,6 +5,7 @@ type UserProfile = {
   last_name: string;
   username: string;
   email: string;
+  image: string;
   active: boolean;
 };
 
@@ -15,6 +16,7 @@ const initialState: UserProfile = {
   last_name: "",
   username: "",
   email: "",
+  image: "",
   active: false,
 };
 
@@ -42,6 +44,9 @@ export const user_profile_slice = createSlice({
     set_email: (state, action: SET_VALUE) => {
       state.email = action.payload;
     },
+    set_image: (state, action: SET_VALUE) => {
+      state.image = action.payload;
+    },
     set_active: (state, action: SET_ACTIVE) => {
       state.active = action.payload;
     },
@@ -50,6 +55,7 @@ export const user_profile_slice = createSlice({
       state.last_name = "";
       state.username = "";
       state.email = "";
+      state.image = "";
       state.active = false;
     },
   },
@@ -61,6 +67,7 @@ export const {
   set_username,
   set_email,
   set_active,
+  set_image,
   remove_profile_status,
 } = user_profile_slice.actions;
 

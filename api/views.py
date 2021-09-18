@@ -8,7 +8,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .authenticate import FaceIdAuthBackend
 from .models import UserFaceImage
-from .utils import base64_file, prepare_image
+from .utils import base64_file, prepare_image, encode_base64
+
 
 
 class RegisterUserView(APIView):
@@ -62,9 +63,13 @@ class UserProfileView(APIView):
     def get(self, request):
         if request.user.is_authenticated:
             user = request.user
+            user = User.objects.get(username=user.username)
+            image = encode_base64(str(user.userfaceimage.image))
+
             profile = {'username': user.username,
                        'email': user.email,
                        'first_name': user.first_name,
-                       'last_name': user.last_name}
+                       'last_name': user.last_name,
+                       'image': image}
             return Response(profile)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
