@@ -56,6 +56,13 @@ const LoginFaceID = () => {
     </p>
   ) : (
     <div>
+      {log_fail ? (
+        <p style={{ color: "red" }}>
+          <strong>Wrong FaceID or username!!!</strong>
+        </p>
+      ) : (
+        ""
+      )}
       <form>
         <label>
           Username:
@@ -70,13 +77,6 @@ const LoginFaceID = () => {
         <button type="button" onClick={FaceLogin}>
           {sending ? "Please wait..." : "Login"}
         </button>
-        {log_fail ? (
-          <p style={{ color: "red" }}>
-            <strong>Wrong FaceID or username!!!</strong>
-          </p>
-        ) : (
-          ""
-        )}
       </form>
     </div>
   );

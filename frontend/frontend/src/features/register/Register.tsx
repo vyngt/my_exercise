@@ -84,7 +84,7 @@ const Register = () => {
         })
         .catch(() => setReg_success(2));
     } else {
-      console.log("Password not matched");
+      setReg_success(3);
     }
     dispatch(set_none());
   };
@@ -118,8 +118,10 @@ const Register = () => {
         </form>
       ) : reg_success === 1 ? (
         <p>Success</p>
-      ) : (
+      ) : reg_success === 2 ? (
         <p>Failed</p>
+      ) : (
+        <p>Password Not Match</p>
       )}
     </div>
   );

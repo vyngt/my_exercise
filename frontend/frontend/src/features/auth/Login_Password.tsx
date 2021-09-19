@@ -48,6 +48,13 @@ const LoginPassword = () => {
     </p>
   ) : (
     <div>
+      {log_fail ? (
+        <p style={{ color: "red" }}>
+          <strong>Wrong password or username!!!</strong>
+        </p>
+      ) : (
+        ""
+      )}
       <form>
         <label htmlFor="username">
           Username:
@@ -71,13 +78,6 @@ const LoginPassword = () => {
         <button type="button" onClick={PasswordLogin}>
           {sending ? "Please wait..." : "Login"}
         </button>
-        {log_fail ? (
-          <p style={{ color: "red" }}>
-            <strong>Wrong password or username!!!</strong>
-          </p>
-        ) : (
-          ""
-        )}
       </form>
     </div>
   );
